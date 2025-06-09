@@ -34,7 +34,7 @@ public class PvpCheckerService implements Listener {
         startCombatTick();
     }
     private void startCombatTick() {
-        Bukkit.getScheduler().runTaskTimer(module.getPlugin(), () -> {
+        Bukkit.getScheduler().runTaskTimerAsynchronously(module.getPlugin(), () -> {
             Iterator<Entry<UUID, Integer>> iterator = inCombatPlayers.entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry<UUID, Integer> entry = iterator.next();
@@ -57,7 +57,7 @@ public class PvpCheckerService implements Listener {
         UUID uuid = victim.getUniqueId();
         boolean isNew = inCombatPlayers.put(uuid, module.getConfig().getCombatTimer()) == null;
 
-        Bukkit.getScheduler().runTask(module.getPlugin(), () -> {
+        Bukkit.getScheduler().runTaskAsynchronously(module.getPlugin(), () -> {
             if (isNew) {
                 Bukkit.getPluginManager().callEvent(new PlayerStartPvpEvent(victim));
             }

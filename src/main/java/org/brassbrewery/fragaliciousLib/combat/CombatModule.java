@@ -14,7 +14,7 @@ public class CombatModule extends FragaliciouModule<CombatAPI> {
 
     @Override
     public void preInit() {
-        CombatMainConfig config = new CombatMainConfig(getPlugin());
+        config = new CombatMainConfig(getPlugin());
     }
 
     @Override

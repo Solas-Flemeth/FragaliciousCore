@@ -7,13 +7,14 @@ import org.brassbrewery.fragaliciousLib.structure.FragaliciousPlugin;
 import java.nio.file.Path;
 
 public class CombatMainConfig extends FragaliciousConfig {
-    public IntegerConfigObject combatTimer = new IntegerConfigObject("combat.timer", 30, "Time in seconds before a player not hit is no longer considered to be in combat");
+    public IntegerConfigObject combatTimer;
     public CombatMainConfig(FragaliciousPlugin plugin) {
         super(plugin, "Combat") ;
     }
 
     @Override
     public void registerAllConfigObjects() {
+        combatTimer = new IntegerConfigObject("combat.timer", 30, "Time in seconds before a player not hit is no longer considered to be in combat");
         registerConfigObject(combatTimer);
     }
 
