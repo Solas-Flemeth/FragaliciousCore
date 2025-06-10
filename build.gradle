@@ -62,7 +62,7 @@ tasks.register('generateConfigGetters', JavaExec) {
     group = 'utility'
     description = 'Generates getters for FragaliciousConfig fields'
     classpath = sourceSets.main.runtimeClasspath
-    mainClass.set('org.brassbrewery.fragaliciousLib.configs.GenerateFragaliciousGetters')
+    mainClass.set('org.brassbrewery.fragaliciousCore.configs.GenerateFragaliciousGetters')
 }
 
 processResources {

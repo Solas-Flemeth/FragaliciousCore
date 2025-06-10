@@ -1,6 +1,6 @@
 name: FragaliciousLib
 version: '0.1'
-main: org.brassbrewery.fragaliciousLib.FragaliciousLib
+main: org.brassbrewery.fragaliciousCore.FragaliciousCore
 api-version: '1.21'
 prefix: Frag Lib
 authors: [ Sir Fragalicious ]
