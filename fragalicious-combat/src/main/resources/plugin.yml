@@ -1,0 +1,32 @@
+name: FragaliciousCombat
+main: org.brassbrewery.fragaliciousCombat.FragaliciousCombat
+version: 0.1
+api-version: 1.21
+prefix: FragCombat
+depend:
+  - FragaliciousCore
+softdepend:
+  - Towny
+  - PlaceholderAPI
+permissions:
+  fragalicious.combat.admin:
+    description: Recommend permissions for an admin
+    default: op
+    children:
+      fragalicious.combat.reload: true
+      fragalicious.combat.debug: true
+
+commands:
+  togglepvp:
+    description: Toggle PvP combat protection
+    usage: /<command> [force]
+    permission: fragalicious.combat.togglepvp
+    default: true
+  combatreload:
+    description: Reload the combat config
+    usage: /<command>
+    permission: fragalicious.combat.reload
+  pvpstatus:
+    description: Give the current pvp data about the player. This is meant for debugging. If empty, returns self.
+    usage: /<command> [playername]
+    permission: fragalicious.combat.debug

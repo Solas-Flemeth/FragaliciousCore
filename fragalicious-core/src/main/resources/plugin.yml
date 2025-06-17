@@ -1,0 +1,17 @@
+name: FragaliciousCore
+version: '0.1'
+main: org.brassbrewery.fragaliciousCore.FragaliciousCore
+api-version: '1.21'
+prefix: FragCore
+authors: [ Sir Fragalicious ]
+description: An API for Fragalicious
+depend:
+  - Vault
+libraries:
+  - org.spongepowered:configurate-hocon:4.2.0
+  - com.zaxxer:HikariCP:6.3.0
+commands:
+  reloadfraglib:
+    description: Reloads the FragaliciousLib
+    usage: /reloadfraglib
+    permission: fragalicious.lib.reload
