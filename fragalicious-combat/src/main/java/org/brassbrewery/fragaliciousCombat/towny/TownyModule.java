@@ -40,7 +40,7 @@ public class TownyModule extends FragaliciousModule<FilterTownyAPI> {
 
     @Override
     public void registerServices() {
-        townyPlayerUtility = new TownyPlayerUtility();
+        townyPlayerUtility = new TownyPlayerUtility(this);
     }
 
     @Override

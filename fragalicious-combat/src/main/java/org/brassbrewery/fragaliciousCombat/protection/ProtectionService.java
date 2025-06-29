@@ -90,18 +90,33 @@ public class ProtectionService extends ProtectionStringUtil implements Listener 
         newProtectedPlayer.updateLastLogin();
         protectedPlayerMap.addProtectedPlayer(newProtectedPlayer);
     }
-
     /**
-     * Updates the player death protection when they die to prevent them from being attacked if enabled in the config.
-     * @param player
+     * Updates the player death protection when they die and makes them keep their inventory if proper criteria are met
+     * @param event
      */
-    public void updateOnDeath(Player player){
+    public void updateOnDeath(PlayerDeathEvent event){
+        Player player =  event.getPlayer();
         UUID uuid = player.getUniqueId();
         ProtectedPlayer protectedPlayer = protectedPlayerMap.getProtectedPlayer(uuid);
-        if(protectedPlayer == null || !(protectedPlayer.getProtectionType() == ProtectionType.NONE)){
+        //Check to see if in a protected town for protecting their inventory
+        if(isInSafeTown(player) && getConfig().getKeepInventoryInPeacefulTowns()){
+            event.setKeepInventory(true);
+            event.setKeepLevel(true);
+            event.setDroppedExp(0);
+            event.getDrops().clear();
+        }
+        //Validate their protection exist
+        if(protectedPlayer == null){
             return; //Do nothing as we don't want to override the existing protection type.
         }
-        if(getConfig().getEnableRespawnProtection()){
+        //if protected and in wilderness with keep inv option, keep their inventory.
+        else if(isInWilderness(player) && getConfig().getKeepInventoryOnDeath() && !(protectedPlayer.getProtectionType() == ProtectionType.NONE)){
+            event.setKeepInventory(true);
+            event.setKeepLevel(true);
+            event.setDroppedExp(0);
+            event.getDrops().clear();
+        //if no protection but has respawn protection, add respawn protection.
+        } else if(protectedPlayer.getProtectionType() == ProtectionType.NONE && getConfig().getEnableRespawnProtection()){
             protectedPlayer.setProtectionType(ProtectionType.RESPAWN);
             protectedPlayer.setDuration(getConfig().getRespawnProtectionDuration());
             protectedPlayerMap.addProtectedPlayer(protectedPlayer);
@@ -198,7 +213,7 @@ public class ProtectionService extends ProtectionStringUtil implements Listener 
     }
     @EventHandler
     public void onDeath(PlayerDeathEvent event){
-        updateOnDeath(event.getPlayer());
+        updateOnDeath(event);
     }
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event){
@@ -226,6 +241,13 @@ public class ProtectionService extends ProtectionStringUtil implements Listener 
             return true;
         }
     }
+    private boolean isInSafeTown(Player player){
+        try {
+            return FragaliciousCombat.getInstance().getTownyAPI().isInSafeTown(player.getLocation());
+        } catch (ModuleNotLoadedException ignored) { //town isn't loaded so everything is warzone
+            return false;
+        }
+    }
     public void updatePlayer(ProtectedPlayer protectedPlayer){
         protectedPlayerMap.updateProtectedPlayer(protectedPlayer);
     }
@@ -236,6 +258,9 @@ public class ProtectionService extends ProtectionStringUtil implements Listener 
 
     public ProtectedPlayer getPlayer(UUID uuid) {
         return protectedPlayerMap.getProtectedPlayer(uuid);
+    }
+    public boolean playerInProtectionList(UUID uuid){
+        return protectedPlayerMap.containsPlayer(uuid);
     }
 }
 

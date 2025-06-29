@@ -15,13 +15,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class ProtectionUpkeepService extends ProtectionStringUtil implements Listener {
-    private ProtectionModule protectionModule;
+    private final ProtectionModule protectionModule;
 
     public ProtectionUpkeepService(ProtectionModule protectionModule) {
         super(protectionModule.getConfig());
+        this.protectionModule = protectionModule;
     }
 
 
@@ -53,17 +55,26 @@ public class ProtectionUpkeepService extends ProtectionStringUtil implements Lis
     private void applyUpkeep(boolean onlineOnly) {
         protectionModule.fine("Running Upkeep for all players with active protection");
         List<ProtectedPlayer> protectedPlayerList;
-        if(onlineOnly){
+        List<ProtectedPlayer> updatedProtectedPlayerList = new LinkedList<>();
+        //get playerlist;
+        if(onlineOnly) {
             protectedPlayerList = protectionModule.getProtectionService().getPaidProtectedPlayers();
         }else{
             protectedPlayerList = DaoRegistry.get().protectedPlayerDao().getProtectedPlayersWithUpkeep();
         }
+        //charge players
         for (ProtectedPlayer protectedPlayer : protectedPlayerList) {
             try {
-                applyUpkeepToPlayer(protectedPlayer);
+                 ProtectedPlayer updateProtectedPlayer = applyUpkeepToPlayer(protectedPlayer);
+                 if(updateProtectedPlayer.getProtectionType().equals(ProtectionType.NONE)){
+                     updatedProtectedPlayerList.add(updateProtectedPlayer);
+                 }
             } catch (ModuleNotLoadedException ignored) {}
         }
-
+        //update online and offline players
+        protectionModule.fine("A total of " + protectedPlayerList.size() + " players were processed. Of those, " + updatedProtectedPlayerList.size() + " had their protection revoked. Saving to database");
+        DaoRegistry.get().protectedPlayerDao().addOrUpdateProtectedPlayer(updatedProtectedPlayerList);
+        protectionModule.fine("Finished Protected Player Upkeep");
     }
 
     private ProtectedPlayer applyUpkeepToPlayer(ProtectedPlayer protectedPlayer) throws ModuleNotLoadedException {

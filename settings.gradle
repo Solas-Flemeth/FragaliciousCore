@@ -2,3 +2,4 @@ rootProject.name = 'fragalicious-plugins'
 
 include 'fragalicious-core'
 include 'fragalicious-combat'
+include 'fragalicious-economics'

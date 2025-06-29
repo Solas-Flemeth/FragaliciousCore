@@ -1,0 +1,14 @@
+name: FragaliciousEconomics
+version: '0.1'
+main: org.brassbrewery.fragaliciousEconomics.FragaliciousEconomics
+api-version: '1.21'
+prefix: FragEco
+authors: [ Sir Fragalicious ]
+description: An API for Fragalicious
+depend:
+  - FragaliciousCore
+commands:
+  reloadfrageconomics:
+    description: Reloads the FragaliciousLib
+    usage: /reloadfraglib
+    permission: fragalicious.lib.reload

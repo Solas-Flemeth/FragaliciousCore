@@ -21,5 +21,8 @@ public class FilterTownyAPI extends FragaliciousAPI<TownyModule> {
     public boolean isLocationInWilderness(Location location){
         return this.getModule().townyPlayerUtility.isLocationInWilderness(location);
     }
+    public boolean isInSafeTown(Location location){
+        return this.getModule().townyPlayerUtility.isInSafeTown(location);
+    }
 
 }

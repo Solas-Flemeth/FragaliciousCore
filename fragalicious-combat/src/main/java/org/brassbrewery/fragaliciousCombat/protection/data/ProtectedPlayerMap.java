@@ -25,7 +25,7 @@ public class ProtectedPlayerMap {
         playerProtectionMap.put(protectedPlayer.getPlayer(), protectedPlayer);
     }
     public void updateProtectedPlayer(ProtectedPlayer protectedPlayer){
-        if(playerProtectionMap.containsKey(protectedPlayer)){
+        if(playerProtectionMap.containsKey(protectedPlayer.getPlayer())){
             playerProtectionMap.replace(protectedPlayer.getPlayer(), protectedPlayer);
         }
     }
@@ -60,4 +60,5 @@ public class ProtectedPlayerMap {
         }
         return paidProtectedPlayers;
     }
+    public Boolean containsPlayer(UUID uuid){return playerProtectionMap.containsKey(uuid);}
 }
