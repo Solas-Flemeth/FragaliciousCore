@@ -15,3 +15,8 @@ commands:
     description: Reloads the FragaliciousLib
     usage: /reloadfraglib
     permission: fragalicious.lib.reload
+  afk:
+    description: Makes yourself afk
+    usage: /afk
+    aliases: [ afkstatus ]
+    permission: fragalicious.lib.afk

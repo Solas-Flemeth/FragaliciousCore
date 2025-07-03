@@ -1,5 +1,7 @@
 package org.brassbrewery.fragaliciousCore;
 
+import org.brassbrewery.fragaliciousCore.afk.AfkApi;
+import org.brassbrewery.fragaliciousCore.afk.AfkModule;
 import org.brassbrewery.fragaliciousCore.combat.CombatAPI;
 import org.brassbrewery.fragaliciousCore.combat.CombatModule;
 import org.brassbrewery.fragaliciousCore.commands.ReloadPluginCommand;
@@ -19,6 +21,7 @@ public class FragaliciousCore extends FragaliciousPlugin {
     private static CombatModule combatModule;
     private static FragaliciousLogger logger;
     private static EconomyModule economyModule;
+    private  static AfkModule afkModule;
     @Override
     public void onEnable() {
         INSTANCE = this;
@@ -62,9 +65,11 @@ public class FragaliciousCore extends FragaliciousPlugin {
     @Override
     public void registerModules() {
         timeModule = new TimeModule();
+        afkModule = new AfkModule(this);
         economyModule = new EconomyModule();
         //anomalyModule = new AnomalyModule(getInstance());
         combatModule = new CombatModule();
+
     }
     public static void onReload(){
         logger.fine("Reloading Plugin");
@@ -72,6 +77,7 @@ public class FragaliciousCore extends FragaliciousPlugin {
         combatModule.onReload();
         economyModule.onReload();
         //anomalyModule.onreload();
+        afkModule.onReload();
         logger.fine("Plugin Reloaded");
     }
 
@@ -93,4 +99,7 @@ public class FragaliciousCore extends FragaliciousPlugin {
     }
 
 
+    public AfkApi getAfkApi() throws ModuleNotLoadedException {
+        return afkModule.getAPI();
+    }
 }

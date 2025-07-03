@@ -6,6 +6,7 @@ import org.brassbrewery.fragaliciousCore.structure.FragaliciousPlugin;
 
 public class AfkModule extends FragaliciousModule<AfkApi> {
     private  AfkConfig afkConfig;
+    private AfkService afkService;
     public AfkModule(FragaliciousPlugin plugin) {
         super(plugin);
     }
@@ -32,17 +33,17 @@ public class AfkModule extends FragaliciousModule<AfkApi> {
 
     @Override
     public void registerListeners() {
-
+        registerListener(afkService);
     }
 
     @Override
     public void registerServices() {
-
+        afkService = new AfkService(this);
     }
 
     @Override
     public void registerCommands() {
-
+        registerCommand("afk", new AfkCommand());
     }
 
     @Override
@@ -52,9 +53,13 @@ public class AfkModule extends FragaliciousModule<AfkApi> {
 
     @Override
     public void onReload() {
-
+        afkConfig.reloadConfig();
     }
     public AfkConfig getAfkConfig(){
         return this.afkConfig;
+    }
+
+    public AfkService getAfkService() {
+        return afkService;
     }
 }
