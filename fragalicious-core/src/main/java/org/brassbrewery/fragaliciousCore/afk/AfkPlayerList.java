@@ -22,10 +22,8 @@ public class AfkPlayerList {
         this.afkPlayerMap.put(uuid, new AfkPlayer(uuid));
     }
     public void setAfk(UUID uuid){
-        System.out.println("Manaul Setafk:Started");
                 afkPlayerMap.get(uuid).setAfk(false);
                 afkPlayerMap.get(uuid).setAfkTime(afkConfig.getAfkTimeInSeconds());
-        System.out.println("Manaul setAfk: Complete");
     }
     public boolean containsPlayer(UUID uuid){return this.afkPlayerMap.containsKey(uuid);}
     public void removePlayer(UUID uuid){
@@ -41,7 +39,6 @@ public class AfkPlayerList {
             if (afkPlayer.getAfkTime() >= afkLimit  && !afkPlayer.isAfk()){
                 afkPlayer.setAfk(true);
                 new PlayerAfkStateChangeEvent(player, true).callEvent();
-
             }
             //kick player
             if(afkPlayer.getAfkTime() >=  kickLimit && afkConfig.shouldKickPlayersForBeingAfkTooLong()) {

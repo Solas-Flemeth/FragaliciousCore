@@ -48,7 +48,6 @@ public class AfkService implements Listener {
     }
     @EventHandler
     public void onAfkStateChange(PlayerAfkStateChangeEvent stateChangeEvent){
-        System.out.println("DETECTED PLAYER AFK STATUS CHANGE EVENT");
         Player player = stateChangeEvent.getPlayer();
         boolean sendAfkMessage = module.getAfkConfig().shouldSendAfkMessage();
         boolean sendAfkBroadcast = module.getAfkConfig().shouldBroadcastAfkStatusChanges();

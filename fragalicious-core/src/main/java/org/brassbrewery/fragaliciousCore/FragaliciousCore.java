@@ -10,33 +10,22 @@ import org.brassbrewery.fragaliciousCore.economy.EconomyModule;
 import org.brassbrewery.fragaliciousCore.exceptions.ModuleNotLoadedException;
 import org.brassbrewery.fragaliciousCore.time.TimeAPI;
 import org.brassbrewery.fragaliciousCore.time.TimeModule;
-import org.brassbrewery.fragaliciousCore.structure.FragaliciousLogger;
 import org.brassbrewery.fragaliciousCore.structure.FragaliciousPlugin;
-
 
 public class FragaliciousCore extends FragaliciousPlugin {
     private static FragaliciousCore INSTANCE;
     private static TimeModule timeModule;
     //private static AnomalyModule anomalyModule;
     private static CombatModule combatModule;
-    private static FragaliciousLogger logger;
     private static EconomyModule economyModule;
     private  static AfkModule afkModule;
-    @Override
-    public void onEnable() {
-        INSTANCE = this;
-        logger = new FragaliciousLogger(INSTANCE, "Core");
-        logger.fine("Starting Initialization of Plugin");
-        // Plugin startup logic
-        registerModules();
-        registerCommands();
-        logger.fine("Plugin Initialized");
-
-    }
 
     @Override
     public void onPreEnable() {
-
+        INSTANCE = this;
+        // Plugin startup logic
+        registerModules();
+        registerCommands();
     }
 
     @Override
@@ -71,14 +60,14 @@ public class FragaliciousCore extends FragaliciousPlugin {
         combatModule = new CombatModule();
 
     }
-    public static void onReload(){
-        logger.fine("Reloading Plugin");
+    public void onReload(){
+        log("Reloading Plugin");
         timeModule.onReload();
         combatModule.onReload();
         economyModule.onReload();
         //anomalyModule.onreload();
         afkModule.onReload();
-        logger.fine("Plugin Reloaded");
+        log("Plugin Reloaded");
     }
 
     /**

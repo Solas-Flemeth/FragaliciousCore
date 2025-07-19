@@ -9,6 +9,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation project(":fragalicious-core")
+    implementation 'com.palmergames.bukkit.towny:towny:0.101.1.0'
 }
 tasks {
     runServer {
