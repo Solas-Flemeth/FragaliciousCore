@@ -51,7 +51,7 @@ public class UbiService extends EcoFlowService {
                     totalUbi += amount;
                 }
             }
-            fine("Deposited  a total of $" + totalUbi + " over" + players.size() + "players.  ( " + afkPlayers + "players are AFK )");
+            fine("Deposited  a total of $" + totalUbi + " over " + players.size() + " players.  ( " + afkPlayers + " players are AFK )");
         }catch (ModuleNotLoadedException e){
             warn("Could not apply UBI to players due to module(s) from core not being loaded. ");
         }
