@@ -7,6 +7,10 @@ authors: [ Sir Fragalicious ]
 description: An API for Fragalicious
 depend:
   - FragaliciousCore
+  - Vault
+softdepend:
+  - Towny
+  - mcMMO
 commands:
   reloadfrageconomics:
     description: Reloads the FragaliciousLib

@@ -13,12 +13,20 @@ allprojects {
             url = "https://oss.sonatype.org/content/groups/public/"
         }
         maven {
+            name = 'mcmmo-repo'
+            url = "https://nexus.neetgames.com/repository/maven-public"
+        }
+        maven {
             name = 'glaremasters repo'
             url = 'https://repo.glaremasters.me/repository/towny/'
         }
         maven {
+            url = "https://maven.enginehub.org/repo/"
+        }
+        maven {
             url 'https://repo.codemc.org/repository/maven-public'
         }
+
     }
 }
 
