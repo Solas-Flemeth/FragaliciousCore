@@ -15,7 +15,6 @@ import org.brassbrewery.fragaliciousCore.structure.FragaliciousPlugin;
 public class FragaliciousCore extends FragaliciousPlugin {
     private static FragaliciousCore INSTANCE;
     private static TimeModule timeModule;
-    //private static AnomalyModule anomalyModule;
     private static CombatModule combatModule;
     private static EconomyModule economyModule;
     private  static AfkModule afkModule;
@@ -56,7 +55,6 @@ public class FragaliciousCore extends FragaliciousPlugin {
         timeModule = new TimeModule();
         afkModule = new AfkModule(this);
         economyModule = new EconomyModule();
-        //anomalyModule = new AnomalyModule(getInstance());
         combatModule = new CombatModule();
 
     }
@@ -65,7 +63,6 @@ public class FragaliciousCore extends FragaliciousPlugin {
         timeModule.onReload();
         combatModule.onReload();
         economyModule.onReload();
-        //anomalyModule.onreload();
         afkModule.onReload();
         log("Plugin Reloaded");
     }
